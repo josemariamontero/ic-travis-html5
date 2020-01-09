@@ -1,0 +1,32 @@
+name: Node CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install, build, and test
+      run: |
+        npm install express
+        npm install --global surge
+      deploy:
+      provider: surge
+      project: ./_build/
+      domain: josemaria.surge.sh
+      skip_cleanup: true
+      SURGE_LOGIN: josema9817@gmail.com
+      SURGE_TOKEN: 61978014b4ea55ebc7f8f556b11e1f8e
+      env:
+        CI: true

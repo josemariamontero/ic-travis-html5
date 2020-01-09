@@ -15,4 +15,4 @@ jobs:
       - run: npm install -g surge
       - run: surge ./_build/ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
       - run: pip install html5validator
-      - run: html5validator ./_build/index.html
+      - run: html5validator --root _build/

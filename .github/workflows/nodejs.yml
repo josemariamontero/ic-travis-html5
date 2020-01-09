@@ -14,8 +14,7 @@ jobs:
           node-version: 8
       - run: npm install -g surge
       - run: surge ./_build/ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
-      - run: sudo apt-get install python3-venv
-      - run: python3 -m venv surge
-      - run: source surge/bin/activate
-      - run: pip install html5validator
-      - uses: html5validator --root _build/
+          - name: Comprobación
+      uses: Cyb3r-Jak3/html5validator-action@v0.3
+      with:
+        root: ./_build/

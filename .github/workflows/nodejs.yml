@@ -19,14 +19,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
       run: |
+        apt install build-essential libssl-dev
         npm install express
         npm install --global surge
-      deploy:
-      provider: surge
-      project: ./_build/
-      domain: josemaria.surge.sh
-      skip_cleanup: true
-      SURGE_LOGIN: josema9817@gmail.com
-      SURGE_TOKEN: 61978014b4ea55ebc7f8f556b11e1f8e
-      env:
+        surge ./_build/ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+       env:
         CI: true
